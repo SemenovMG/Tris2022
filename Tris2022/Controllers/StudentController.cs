@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Tris2022.Repositories;
 
 namespace Tris2022.Controllers
 {
@@ -6,36 +7,29 @@ namespace Tris2022.Controllers
     [Route("[controller]")]
     public class StudentController : ControllerBase
     {
-        private static readonly List<string> _students = new()
-        {
-            "Иванов", "Петров", "Сидоров"
-        };
-
+        private static readonly StudentFakeRepository _studentRepository = new ();
         public StudentController()
         {}
 
         [HttpGet]
         public IEnumerable<string> GetAllStudents()
         {
-            return _students;
+            return _studentRepository.GetAllStudents();
         }
 
         [HttpGet("{id}")]
         public ActionResult<string> GetStudentById(int id)
         {
-            if (id <0 || id >= _students.Count)
-                return BadRequest("Wrong Id");
-            return _students[id];
+            return _studentRepository.GetStudentById(id);
         }
 
         [HttpPost]
         public ActionResult<string> AddStudent(string studentName)
         {
-            if (_students.Count >= 5)
-                return BadRequest("Student group is full");
-            var id = _students.Count;
-            _students.Add(studentName);
-            return CreatedAtAction("GetStudentById", new { id }, studentName);
+            var newStudent = _studentRepository.AddStudent(studentName);
+            return CreatedAtAction("GetStudentById", 
+                new { newStudent.Id }, 
+                newStudent.Student);
             //return Ok(studentName);
             //return Ok();
         }
@@ -43,11 +37,7 @@ namespace Tris2022.Controllers
         [HttpDelete("{id}")]
         public ActionResult<string> DeleteStudentById(int id)
         {
-            if (id < 0 || id >= _students.Count)
-                return BadRequest("Wrong Id");
-            var studentToRemove = _students[id];
-            _students.Remove(studentToRemove); ;
-            return studentToRemove;
+            return _studentRepository.DeleteStudentById(id);
         }
     }
 }
