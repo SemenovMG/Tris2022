@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Tris2022.Repositories;
+using Tris2022.Interfaces;
 
 namespace Tris2022.Controllers
 {
@@ -7,9 +7,12 @@ namespace Tris2022.Controllers
     [Route("[controller]")]
     public class StudentController : ControllerBase
     {
-        private static readonly StudentFakeRepository _studentRepository = new ();
-        public StudentController()
-        {}
+        private readonly IStudentRepository _studentRepository;
+        public StudentController(
+            IStudentRepository studentRepository)
+        {
+            _studentRepository = studentRepository;
+        }
 
         [HttpGet]
         public IEnumerable<string> GetAllStudents()
@@ -30,8 +33,6 @@ namespace Tris2022.Controllers
             return CreatedAtAction("GetStudentById", 
                 new { newStudent.Id }, 
                 newStudent.Student);
-            //return Ok(studentName);
-            //return Ok();
         }
 
         [HttpDelete("{id}")]

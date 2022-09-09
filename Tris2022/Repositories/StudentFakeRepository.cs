@@ -1,6 +1,8 @@
-﻿namespace Tris2022.Repositories
+﻿using Tris2022.Interfaces;
+
+namespace Tris2022.Repositories
 {
-    public class StudentFakeRepository
+    public class StudentFakeRepository: IStudentRepository
     {
         private static readonly List<string> _students = new()
         {
