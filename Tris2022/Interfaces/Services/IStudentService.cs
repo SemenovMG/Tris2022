@@ -1,9 +1,8 @@
 ﻿using Tris2022.Entity;
-using Tris2022.Repositories;
 
-namespace Tris2022.Interfaces
+namespace Tris2022.Interfaces.Services
 {
-    public interface IStudentRepository
+    public interface IStudentService
     {
         IEnumerable<Student> GetAllStudents();
         Student GetStudentById(int id);

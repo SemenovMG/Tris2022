@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Tris2022.Entity;
-using Tris2022.Interfaces;
+using Tris2022.Interfaces.Services;
 using Tris2022.Models;
 
 namespace Tris2022.Controllers
@@ -9,29 +9,29 @@ namespace Tris2022.Controllers
     [Route("[controller]")]
     public class StudentController : ControllerBase
     {
-        private readonly IStudentRepository _studentRepository;
+        private readonly IStudentService _studentService;
         public StudentController(
-            IStudentRepository studentRepository)
+            IStudentService studentService)
         {
-            _studentRepository = studentRepository;
+            _studentService = studentService;
         }
 
         [HttpGet]
         public IEnumerable<Student> GetAllStudents()
         {
-            return _studentRepository.GetAllStudents();
+            return _studentService.GetAllStudents();
         }
 
         [HttpGet("{id}")]
         public ActionResult<Student> GetStudentById(int id)
         {
-            return _studentRepository.GetStudentById(id);
+            return _studentService.GetStudentById(id);
         }
 
         [HttpPost]
         public ActionResult<Student> AddStudent(AddStudentRequest student)
         {
-            var newStudent = _studentRepository.AddStudent(student.StudentName ?? "NoName");
+            var newStudent = _studentService.AddStudent(student.StudentName ?? "NoName");
             return CreatedAtAction("GetStudentById", 
                 new { newStudent.Id },
                 newStudent);
@@ -40,7 +40,7 @@ namespace Tris2022.Controllers
         [HttpDelete("{id}")]
         public ActionResult<Student> DeleteStudentById(int id)
         {
-            return _studentRepository.DeleteStudentById(id);
+            return _studentService.DeleteStudentById(id);
         }
     }
 }

@@ -41,8 +41,6 @@ namespace Tris2022.Repositories
 
         public Student AddStudent(string studentName)
         {
-            if (_students.Count >= 5)
-                throw new ArgumentException("Student group is full");
             var newStudent = new Student
             {
                 Name = studentName,
@@ -62,6 +60,11 @@ namespace Tris2022.Repositories
                 throw new Exception("student cant be removed");
             }
             return studentToDelete;
+        }
+
+        public int GetGroupSize()
+        {
+            return _students.Count;
         }
     }
 }
