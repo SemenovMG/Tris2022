@@ -1,53 +1,67 @@
-﻿using Tris2022.Interfaces;
+﻿using Tris2022.Entity;
+using Tris2022.Interfaces;
 
 namespace Tris2022.Repositories
 {
     public class StudentFakeRepository: IStudentRepository
     {
-        private static readonly List<string> _students = new()
+        private static readonly List<Student> _students = new()
         {
-            "Иванов",
-            "Петров",
-            "Сидоров"
+            new Student
+            {
+                Id = 1,
+                Name = "Иванов",
+            },
+            new Student
+            {
+                Id = 2,
+                Name = "Петров",
+            },
+            new Student
+            {
+                Id = 3,
+                Name = "Сидоров",
+            },
         };
 
-        public IEnumerable<string> GetAllStudents()
+        private static int nextId = 4;
+
+        public IEnumerable<Student> GetAllStudents()
         {
             return _students;
         }
 
-        public string GetStudentById(int id)
+        public Student GetStudentById(int id)
         {
-            if (id < 0 || id >= _students.Count)
+            var student = _students.FirstOrDefault(s => s.Id == id);
+            if (student is null)
                 throw new ArgumentException("Wrong Id");
-            return _students[id];
+            return student;
         }
 
-        public AddStudentResult AddStudent(string studentName)
+        public Student AddStudent(string studentName)
         {
             if (_students.Count >= 5)
                 throw new ArgumentException("Student group is full");
-            var id = _students.Count;
-            _students.Add(studentName);
-            return new AddStudentResult
+            var newStudent = new Student
             {
-                Id = id,
-                Student = studentName
+                Name = studentName,
+                Id = nextId++,
             };
+            _students.Add(newStudent);
+            return newStudent;
         }
 
-        public string DeleteStudentById(int id)
+        public Student DeleteStudentById(int id)
         {
-            if (id < 0 || id >= _students.Count)
+            var studentToDelete = _students.FirstOrDefault(s => s.Id == id);
+            if (studentToDelete is null)
                 throw new ArgumentException("Wrong Id");
-            var studentToRemove = _students[id];
-            _students.Remove(studentToRemove); ;
-            return studentToRemove;
+            if (!_students.Remove(studentToDelete))
+            {
+                throw new Exception("student cant be removed");
+            }
+            return studentToDelete;
         }
-    }
-
-    public class AddStudentResult {
-        public string? Student { get; set; }
-        public int Id { get; set; }
     }
 }

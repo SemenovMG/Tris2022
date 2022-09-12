@@ -1,12 +1,13 @@
-﻿using Tris2022.Repositories;
+﻿using Tris2022.Entity;
+using Tris2022.Repositories;
 
 namespace Tris2022.Interfaces
 {
     public interface IStudentRepository
     {
-        IEnumerable<string> GetAllStudents();
-        string GetStudentById(int id);
-        AddStudentResult AddStudent(string studentName);
-        string DeleteStudentById(int id);
+        IEnumerable<Student> GetAllStudents();
+        Student GetStudentById(int id);
+        Student AddStudent(string studentName);
+        Student DeleteStudentById(int id);
     }
 }
