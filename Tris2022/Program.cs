@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Tris2022.Infrastructure.Data;
 using Tris2022.Interfaces;
 using Tris2022.Interfaces.Services;
 using Tris2022.Repositories;
@@ -8,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddSingleton<IStudentRepository, StudentFakeRepository>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddDbContext<DeansOfficeContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Tris2022")));
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
