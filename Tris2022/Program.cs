@@ -8,7 +8,7 @@ using Tris2022.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSingleton<IStudentRepository, StudentFakeRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddDbContext<DeansOfficeContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Tris2022")));

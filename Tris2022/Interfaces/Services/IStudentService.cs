@@ -1,4 +1,5 @@
 ﻿using Tris2022.Entity;
+using Tris2022.Models;
 
 namespace Tris2022.Interfaces.Services
 {
@@ -6,7 +7,7 @@ namespace Tris2022.Interfaces.Services
     {
         IEnumerable<Student> GetAllStudents();
         Student GetStudentById(int id);
-        Student AddStudent(string studentName);
+        Student AddStudent(AddStudentRequest studentName);
         Student DeleteStudentById(int id);
     }
 }

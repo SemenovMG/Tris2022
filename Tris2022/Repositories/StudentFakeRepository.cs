@@ -39,11 +39,11 @@ namespace Tris2022.Repositories
             return student;
         }
 
-        public Student AddStudent(string studentName)
+        public Student AddStudent(Student studentData)
         {
             var newStudent = new Student
             {
-                Name = studentName,
+                Name = studentData.Name,
                 Id = nextId++,
             };
             _students.Add(newStudent);

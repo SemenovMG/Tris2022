@@ -1,6 +1,7 @@
 ﻿using Tris2022.Entity;
 using Tris2022.Interfaces;
 using Tris2022.Interfaces.Services;
+using Tris2022.Models;
 
 namespace Tris2022.Services
 {
@@ -13,12 +14,15 @@ namespace Tris2022.Services
             _studentRepository = studentRepository;
         }
 
-        public Student AddStudent(string studentName)
+        public Student AddStudent(AddStudentRequest request)
         {
-            if (_studentRepository.GetGroupSize() >= 5)
-                throw new ArgumentException("Student group is full");
-            var newStudent = _studentRepository.AddStudent(studentName);
-            return newStudent;
+            //if (??.GetGroupSize() >= 5)
+            //    throw new ArgumentException("Student group is full");
+            var newStudent = new Student()
+            {
+                Name = request.StudentName
+            };
+            return _studentRepository.AddStudent(newStudent);
         }
 
         public Student DeleteStudentById(int id)

@@ -6,8 +6,7 @@ namespace Tris2022.Interfaces
     {
         IEnumerable<Student> GetAllStudents();
         Student GetStudentById(int id);
-        Student AddStudent(string studentName);
+        Student AddStudent(Student studentName);
         Student DeleteStudentById(int id);
-        int GetGroupSize();
     }
 }
