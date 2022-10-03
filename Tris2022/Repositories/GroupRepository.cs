@@ -1,4 +1,5 @@
-﻿using Tris2022.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using Tris2022.Entity;
 using Tris2022.Infrastructure.Data;
 using Tris2022.Interfaces;
 
@@ -38,6 +39,20 @@ namespace Tris2022.Repositories
             _db.Groups.Remove(groupToDelete);
             _db.SaveChanges();
             return groupToDelete;
+        }
+
+        public Group GetGroupWithStudents(int id)
+        {
+            return _db.Groups
+                .Include(g => g.Students)
+                .First(s => s.Id == id);
+        }
+
+        public Group AddStudent(Group group, Student student)
+        {
+            student.Group = group;
+            _db.SaveChanges();
+            return group;
         }
     }
 }

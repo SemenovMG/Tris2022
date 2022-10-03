@@ -42,5 +42,12 @@ namespace Tris2022.Controllers
         {
             return _groupService.DeleteGroupById(id);
         }
+
+        [HttpPut("{groupId}/add-student")]
+        public ActionResult<AddGroupResponse> AddStudentToGroup(
+            int groupId, AddStudentToGroupRequest request)
+        {
+            return _groupService.AddStudent(groupId, request);
+        }
     }
 }

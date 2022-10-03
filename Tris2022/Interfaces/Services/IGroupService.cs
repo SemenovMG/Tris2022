@@ -9,5 +9,6 @@ namespace Tris2022.Interfaces.Services
         Group GetGroupById(int id);
         Group AddGroup(AddGroupRequest GroupName);
         Group DeleteGroupById(int id);
+        AddGroupResponse AddStudent(int groupId, AddStudentToGroupRequest request);
     }
 }

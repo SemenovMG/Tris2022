@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tris2022.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using Tris2022.Infrastructure.Data;
 namespace Tris2022.Migrations
 {
     [DbContext(typeof(DeansOfficeContext))]
-    partial class DeansOfficeContextModelSnapshot : ModelSnapshot
+    [Migration("20221003055400_StudentGroup")]
+    partial class StudentGroup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

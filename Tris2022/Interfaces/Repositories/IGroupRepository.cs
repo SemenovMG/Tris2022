@@ -8,5 +8,7 @@ namespace Tris2022.Interfaces
         Group GetGroupById(int id);
         Group AddGroup(Group GroupName);
         Group DeleteGroupById(int id);
+        Group GetGroupWithStudents(int id);
+        Group AddStudent(Group group, Student student);
     }
 }
